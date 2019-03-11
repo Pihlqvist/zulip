@@ -44,6 +44,10 @@ We modified the unittest to check the values of the ‘old_value’ and ‘new_v
 
 ## The refactoring carried out
 
+![Before Refactoring](https://github.com/Pihlqvist/zulip/blob/master/g21/ULM-Before_refactoring.png "Before Refactoring")
+
+![After Refactoring](https://github.com/Pihlqvist/zulip/blob/master/g21/ULM-After_refactoring.png "After Refactoring")
+
 (Link to) a UML diagram and its description
 
 The refactoring carried out was to add a new_value field and an old_value field to the database in the class RealmAuditLog in `models.py`. This will make Zulip able to keep track of the old value when a change stored in the audit log is made.
