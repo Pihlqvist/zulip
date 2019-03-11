@@ -63,6 +63,9 @@ We modified the unittest to check the values of the ‘old_value’ and ‘new_v
 
 The refactoring carried out was to add a `new_value` field and an `old_value` field to the database in the class RealmAuditLog in `models.py`. This will make Zulip able to keep track of the old value when a change stored in the audit log is made.
 
+### Refactoring
+The best overview can be found with a git pull request, [refactoring](https://github.com/zulip/zulip/compare/master...Pihlqvist:issue-10274).
+
 ## Test logs
 
 Backend unit tests were used for testing the success of the refactoring. All automated test successfully ran but we only tried this once because of time consumptions. The unit tests involve the class itself so should cover all of the functionalities of the refactoring.
