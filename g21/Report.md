@@ -10,7 +10,7 @@ Zulip is a powerful, open source group chat application similar to Slack.
 
 ## Selected issue(s)
 
-Title: RealmAuditLog: Add an old_value and new_value field, and update existing calls. #10274
+Title: RealmAuditLog: Add an old_value and new_value field, and update existing calls. [#10274](https://github.com/zulip/zulip/issues/10274)
 
 URL: https://github.com/zulip/zulip/issues/10274
 
@@ -20,27 +20,27 @@ The audit log stores important changes like when a user changes their email or n
 
 #### Contribution documentation
 
-How to get onboard was very well documented, everything from where to find the infromation to how to contribute was written in detail. The people working on the project was also keen to help if we had questions. We had no issue claiming a _issue_ and working on it. The general chatroom was active and contained information and discussion around issues. 
+Starting out on this project was simply because of its great documentation. All we needed to do was follow the instructions that were presented to us on GitHub, development wiki and chatroom. The contributors working on the project was also keen to help if we had questions. We had no issue claiming an _issue_ in the correct fashion. The general chatroom was active and contained discussion and information on issues and ideas.
 
 #### Did it build as documented?
     
-The building documentation is very good, but building only worked for same of us. Building worked fine on Ubuntu and Mac, but with Windows there was a lot of errors that we couldn’t find any information about.
+The [building documentation](https://zulip.readthedocs.io/en/latest/development/overview.html) is very good, all we need to do was follow step by step instructions.  There were some issues here, some of us encountered errors while building the project, the general errors and solutions to them provided by the documentation didn't help. We could not resolve this on some machines so continued on the once we could build it for.
 
 #### Installation
 
-The project required many tools, libraries and components. Fortunately, they were bundled up in a virtual environment called Vagrant, which took some time to download. However, when the download was complete everything worked without any issues. The tools and commands were briefly documented in the projects documentation, which made it relatively easy to get started. There was one command we couldn’t find in the documentation, which we had to Google for. This command could have been seen as a prerequisite for the Django framework though.
+The project required many tools, libraries and components. Fortunately, they were bundled up in a virtual environment called Vagrant, which took some time to download. However, when the download was complete everything worked without any issues. The tools and commands were briefly documented in the [project's documentation](https://zulip.readthedocs.io/en/latest/development/setup-vagrant.html), which made it relatively easy to get started. There was one command we couldn’t find in the documentation, which we had to Google for. This command could have been seen as a prerequisite for the Django framework though.
 
 ## Requirements affected by functionality being refactored
 
 “Identify requirements of the functions to be refactored. If the requirements are not documented yet, try to describe them based on code reviews and existing test cases. Create a project plan for testing these requirements, and refactoring the code.”
 
-There were no requirements documented for the code or the refactoring. In the test file related to the code to be refactored, there are a number of tests for some different events that the code takes care of, such as activating a user, changing a user’s password and email, and changing the owner of a bot. All of the tests pass before refactoring, and should of course pass after the refactoring as well. 
+There were no requirements documented for the code or the refactoring. In the test file related to the code to be refactored, there are a number of tests for some different events that the code takes care of, such as activating a user, changing a user’s password and email, and changing the owner of a bot. All of the tests pass before refactoring, and should, of course, pass after the refactoring as well. 
 
 ## Existing test cases relating to refactored code
 
-The tests related to the class are in the file test_audit_logs.py. The assertions are decent but never check the actual values of the entry, just that an entry has happened. So they don’t provide a good coverage, but at least it show that the entry was added successfully. All tests ran successfully.
+The existing tests related to the class were neatly put in a unittest class, [TestRealmAuditLog](https://github.com/Pihlqvist/zulip/blob/master/zerver/tests/test_audit_log.py#L18-L141). The assertions are decent but never check the actual values of the entry, just that an entry has happened. So they don’t provide good coverage, but at least it shows that the entry was added successfully. All tests ran successfully.
 
-We modified the unittest to check the values of the ‘old_value’ and ‘new_value’ columns we added.
+We modified the unittest to check the values of the ‘old_value’ and ‘new_value’ columns we added. The modified values can be found in the updated [TestRealmAuditLog](https://github.com/Pihlqvist/zulip/blob/issue-10274/zerver/tests/test_audit_log.py#L19-L166).
 
 ## The refactoring carried out
 
@@ -58,7 +58,7 @@ Backend unit tests were used for testing the success of the refactoring. All aut
 
 #### logs
 * [test before](https://github.com/Pihlqvist/zulip/blob/master/g21/testlog_before.txt)
-* [test_after](https://github.com/Pihlqvist/zulip/blob/master/g21/testlog_after.txt)
+* [test after](https://github.com/Pihlqvist/zulip/blob/master/g21/testlog_after.txt)
 
 The refactoring itself is documented by the git log.
 
