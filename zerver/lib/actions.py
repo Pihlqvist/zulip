@@ -807,6 +807,7 @@ def send_user_email_update_event(user_profile: UserProfile) -> None:
 def do_change_user_delivery_email(user_profile: UserProfile, new_email: str) -> None:
     delete_user_profile_caches([user_profile])
 
+    old_email = user_profile.email
     user_profile.delivery_email = new_email
     if user_profile.realm.email_address_visibility == Realm.EMAIL_ADDRESS_VISIBILITY_EVERYONE:
         user_profile.email = new_email
@@ -829,7 +830,8 @@ def do_change_user_delivery_email(user_profile: UserProfile, new_email: str) -> 
     event_time = timezone_now()
     RealmAuditLog.objects.create(realm=user_profile.realm, acting_user=user_profile,
                                  modified_user=user_profile, event_type=RealmAuditLog.USER_EMAIL_CHANGED,
-                                 event_time=event_time)
+                                 event_time=event_time,
+                                 old_value=old_email, new_value=new_email)
 
 def do_start_email_change_process(user_profile: UserProfile, new_email: str) -> None:
     old_email = user_profile.delivery_email
@@ -3089,7 +3091,7 @@ def do_change_full_name(user_profile: UserProfile, full_name: str,
     event_time = timezone_now()
     RealmAuditLog.objects.create(realm=user_profile.realm, acting_user=acting_user,
                                  modified_user=user_profile, event_type=RealmAuditLog.USER_FULL_NAME_CHANGED,
-                                 event_time=event_time, extra_data=old_name)
+                                 event_time=event_time, old_value=old_name, new_value=full_name)
     payload = dict(email=user_profile.email,
                    user_id=user_profile.id,
                    full_name=user_profile.full_name)
@@ -3135,7 +3137,9 @@ def do_change_bot_owner(user_profile: UserProfile, bot_owner: UserProfile,
     event_time = timezone_now()
     RealmAuditLog.objects.create(realm=user_profile.realm, acting_user=acting_user,
                                  modified_user=user_profile, event_type=RealmAuditLog.USER_BOT_OWNER_CHANGED,
-                                 event_time=event_time)
+                                 event_time=event_time,
+                                 old_value=previous_owner,
+                                 new_value=bot_owner)
 
     update_users = bot_owner_user_ids(user_profile)
 
@@ -3172,13 +3176,16 @@ def do_change_bot_owner(user_profile: UserProfile, bot_owner: UserProfile,
                update_users)
 
 def do_change_tos_version(user_profile: UserProfile, tos_version: str) -> None:
+    old_tos_version = user_profile.tos_version
     user_profile.tos_version = tos_version
     user_profile.save(update_fields=["tos_version"])
     event_time = timezone_now()
     RealmAuditLog.objects.create(realm=user_profile.realm, acting_user=user_profile,
                                  modified_user=user_profile,
                                  event_type=RealmAuditLog.USER_TOS_VERSION_CHANGED,
-                                 event_time=event_time)
+                                 event_time=event_time,
+                                 old_value=old_tos_version,
+                                 new_value=tos_version)
 
 def do_regenerate_api_key(user_profile: UserProfile, acting_user: UserProfile) -> None:
     old_api_key = user_profile.api_key
@@ -3193,7 +3200,9 @@ def do_regenerate_api_key(user_profile: UserProfile, acting_user: UserProfile) -
     event_time = timezone_now()
     RealmAuditLog.objects.create(realm=user_profile.realm, acting_user=acting_user,
                                  modified_user=user_profile, event_type=RealmAuditLog.USER_API_KEY_CHANGED,
-                                 event_time=event_time)
+                                 event_time=event_time,
+                                 old_value=old_api_key,
+                                 new_value=user_profile.api_key)
 
     if user_profile.is_bot:
         send_event(user_profile.realm,
@@ -3206,6 +3215,7 @@ def do_regenerate_api_key(user_profile: UserProfile, acting_user: UserProfile) -
                    bot_owner_user_ids(user_profile))
 
 def do_change_avatar_fields(user_profile: UserProfile, avatar_source: str) -> None:
+    old_avatar_source = user_profile.avatar_source
     user_profile.avatar_source = avatar_source
     user_profile.avatar_version += 1
     user_profile.save(update_fields=["avatar_source", "avatar_version"])
@@ -3213,7 +3223,9 @@ def do_change_avatar_fields(user_profile: UserProfile, avatar_source: str) -> No
     RealmAuditLog.objects.create(realm=user_profile.realm, modified_user=user_profile,
                                  event_type=RealmAuditLog.USER_AVATAR_SOURCE_CHANGED,
                                  extra_data={'avatar_source': avatar_source},
-                                 event_time=event_time)
+                                 event_time=event_time,
+                                 old_value=old_avatar_source,
+                                 new_value=user_profile.avatar_source)
 
     if user_profile.is_bot:
         send_event(user_profile.realm,

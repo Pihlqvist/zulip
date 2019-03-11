@@ -2333,6 +2333,9 @@ class RealmAuditLog(models.Model):
     backfilled = models.BooleanField(default=False)  # type: bool
     extra_data = models.TextField(null=True)  # type: Optional[str]
 
+    old_value = models.TextField(null=True)  # type: Optional[str]
+    new_value = models.TextField(null=True)  # type: Optional[str]
+
     STRIPE_CUSTOMER_CREATED = 'stripe_customer_created'
     STRIPE_CARD_CHANGED = 'stripe_card_changed'
     STRIPE_PLAN_CHANGED = 'stripe_plan_changed'

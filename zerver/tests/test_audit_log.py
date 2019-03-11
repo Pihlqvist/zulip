@@ -8,6 +8,7 @@ from zerver.lib.actions import do_create_user, do_deactivate_user, \
     bulk_add_subscriptions, bulk_remove_subscriptions, get_streams_traffic
 from zerver.lib.test_classes import ZulipTestCase
 from zerver.models import RealmAuditLog, get_client, get_realm
+from corporate.lib.stripe import do_create_stripe_customer
 from analytics.models import StreamCount
 
 from datetime import timedelta
@@ -54,6 +55,9 @@ class TestRealmAuditLog(ZulipTestCase):
         audit_entry = RealmAuditLog.objects.get(event_type=RealmAuditLog.USER_EMAIL_CHANGED, event_time__gte=now)
         self.assertTrue(str(audit_entry).startswith("<RealmAuditLog: <UserProfile: test@example.com <Realm: zulip 1>> user_email_changed "))
 
+        self.assertEqual(audit_entry.old_value, "hamlet@zulip.com")
+        self.assertEqual(audit_entry.new_value, "test@example.com")
+
     def test_change_avatar_source(self) -> None:
         now = timezone_now()
         user = self.example_user('hamlet')
@@ -62,6 +66,10 @@ class TestRealmAuditLog(ZulipTestCase):
         self.assertEqual(RealmAuditLog.objects.filter(event_type=RealmAuditLog.USER_AVATAR_SOURCE_CHANGED,
                                                       event_time__gte=now).count(), 1)
         self.assertEqual(avatar_source, user.avatar_source)
+
+        audit_entry = RealmAuditLog.objects.get(event_type=RealmAuditLog.USER_AVATAR_SOURCE_CHANGED, event_time__gte=now)
+        self.assertEqual(audit_entry.old_value, "G")
+        self.assertEqual(audit_entry.new_value, user.avatar_source)
 
     def test_change_full_name(self) -> None:
         start = timezone_now()
@@ -74,6 +82,10 @@ class TestRealmAuditLog(ZulipTestCase):
                                              event_time__gte=start)
         self.assertEqual(query.count(), 1)
 
+        audit_entry = RealmAuditLog.objects.get(event_type=RealmAuditLog.USER_FULL_NAME_CHANGED, event_time__gte=start)
+        self.assertEqual(audit_entry.old_value, "King Hamlet")
+        self.assertEqual(audit_entry.new_value, new_name)
+
     def test_change_tos_version(self) -> None:
         now = timezone_now()
         user = self.example_user("hamlet")
@@ -82,6 +94,10 @@ class TestRealmAuditLog(ZulipTestCase):
         self.assertEqual(RealmAuditLog.objects.filter(event_type=RealmAuditLog.USER_TOS_VERSION_CHANGED,
                                                       event_time__gte=now).count(), 1)
         self.assertEqual(tos_version, user.tos_version)
+
+        audit_entry = RealmAuditLog.objects.get(event_type=RealmAuditLog.USER_TOS_VERSION_CHANGED, event_time__gte=now)
+        self.assertEqual(audit_entry.old_value, None)
+        self.assertEqual(audit_entry.new_value, "android")
 
     def test_change_bot_owner(self) -> None:
         now = timezone_now()
@@ -93,6 +109,10 @@ class TestRealmAuditLog(ZulipTestCase):
                                                       event_time__gte=now).count(), 1)
         self.assertEqual(bot_owner, bot.bot_owner)
 
+        audit_entry = RealmAuditLog.objects.get(event_type=RealmAuditLog.USER_BOT_OWNER_CHANGED, event_time__gte=now)
+        self.assertEqual(audit_entry.old_value, None)
+        self.assertEqual(audit_entry.new_value, '<UserProfile: hamlet@zulip.com <Realm: zulip 1>>')
+
     def test_regenerate_api_key(self) -> None:
         now = timezone_now()
         user = self.example_user('hamlet')
@@ -100,6 +120,10 @@ class TestRealmAuditLog(ZulipTestCase):
         self.assertEqual(RealmAuditLog.objects.filter(event_type=RealmAuditLog.USER_API_KEY_CHANGED,
                                                       event_time__gte=now).count(), 1)
         self.assertTrue(user.api_key)
+
+        audit_entry = RealmAuditLog.objects.get(event_type=RealmAuditLog.USER_API_KEY_CHANGED, event_time__gte=now)
+        self.assertEqual(audit_entry.old_value, 'S2vhEADdAaDfjTED3tk4O4FqV0S5MPgF')
+        self.assertNotEqual(audit_entry.new_value, audit_entry.old_value)
 
     def test_get_streams_traffic(self) -> None:
         realm = get_realm('zulip')
