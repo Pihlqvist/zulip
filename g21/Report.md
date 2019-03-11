@@ -60,12 +60,12 @@ The refactoring itself is documented by the git log.
 |--|--|--|--|
 | plenary discussions/meetings | 12h | 12h | 12h |
 | discussions within parts of the group| 1h | 1h | 1h |
-| reading documentation | 0h | 3h | 8h |
-| configuration | 0h | 2h | 4h |
-| analyzing code/output | 0h | 2h | 1h |
-| writing documentation | 0h | 3h | 3h |
-| writing code | 0h | 1h | 3h |
-| running code | 0h | 4h | 7h |
+| reading documentation | 6h | 3h | 8h |
+| configuration | 4h | 2h | 4h |
+| analyzing code/output | 2h | 2h | 1h |
+| writing documentation | 2h | 3h | 3h |
+| writing code | 2h | 1h | 3h |
+| running code | 4h | 4h | 7h |
 
 ## Overall experience
 
