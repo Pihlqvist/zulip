@@ -61,7 +61,7 @@ We modified the unittest to check the values of the ‘old_value’ and ‘new_v
 
 (Link to) a UML diagram and its description
 
-The refactoring carried out was to add a new_value field and an old_value field to the database in the class RealmAuditLog in `models.py`. This will make Zulip able to keep track of the old value when a change stored in the audit log is made.
+The refactoring carried out was to add a `new_value` field and an `old_value` field to the database in the class RealmAuditLog in `models.py`. This will make Zulip able to keep track of the old value when a change stored in the audit log is made.
 
 ## Test logs
 
@@ -96,6 +96,9 @@ The refactoring itself is documented by the git log.
 
 #### Fredrik
 
+I'm again reminded of the importance of documentation. It took us so long to find a project with the correct requirements for the assignment. After many failed projects that we just could not get to work. All because of poor documentation.
+
+The assignment also opened my eyes to how different open source projects are. The project we ended up with communicated very well. Other projects didn't even have any external communication with their contributors, very polarised.
 
 #### Is there something special you want to mention here?
 
