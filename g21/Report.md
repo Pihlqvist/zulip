@@ -54,7 +54,7 @@ Backend unit tests were used for testing the success of the refactoring. All aut
 
 #### logs
 * [test before](https://github.com/Pihlqvist/zulip/blob/master/g21/testlog_before.txt)
-* [test_after](https://github.com/Pihlqvist/zulip/blob/master/g21/testlog_before.txt)
+* [test_after](https://github.com/Pihlqvist/zulip/blob/master/g21/testlog_after.txt)
 
 The refactoring itself is documented by the git log.
 
