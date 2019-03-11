@@ -32,9 +32,20 @@ The project required many tools, libraries and components. Fortunately, they wer
 
 ## Requirements affected by functionality being refactored
 
-“Identify requirements of the functions to be refactored. If the requirements are not documented yet, try to describe them based on code reviews and existing test cases. Create a project plan for testing these requirements, and refactoring the code.”
+<!--“Identify requirements of the functions to be refactored. If the requirements are not documented yet, try to describe them based on code reviews and existing test cases. Create a project plan for testing these requirements, and refactoring the code.” -->
 
-There were no requirements documented for the code or the refactoring. In the test file related to the code to be refactored, there are a number of tests for some different events that the code takes care of, such as activating a user, changing a user’s password and email, and changing the owner of a bot. All of the tests pass before refactoring, and should, of course, pass after the refactoring as well. 
+There were no requirements documented for the code or the refactoring. In the test file related to the code to be refactored, there are a number of tests for some different events that the code takes care of, such as activating a user, changing a user’s password and email, and changing the owner of a bot. All of the tests pass before refactoring, and should, of course, pass after the refactoring as well.
+
+The information we had on the refactoring came from a GitHub issue where the issue was brefily described. More information could be found in the [chatroom](https://chat.zulip.org/#narrow/stream/49-development-help/subject/realm.20audit.20log.20changes/near/628995) where several contributors discussed what they wanted the refactoring to achieve.
+
+### Refactoring scope
+
+The refactoring wanted by the project contributors is to change how a [Logger class](https://github.com/Pihlqvist/zulip/blob/master/zerver/models.py#L2304-L2381) stores value that it logs. Before the refactoring the Logger stores the event happening with information on what and when the change happend. To store what actually happened a specific `extra_value` field had to be used. Instead of using this crude method the refactoring wants to make sure the database can store `new/old_value` in place of the `extra_value`. This would mean that all relevant callbacks should be updated in the refactoring, as well as testing for the callbacks and class.
+
+### Requirements
+* Implement `new/old_value` for TestRealmAuditLog (database entry)
+* Refactor callbacks to functions that uses TestRealmAuditLog
+* Test the refactoring for all callback functions and new functionality.
 
 ## Existing test cases relating to refactored code
 
