@@ -73,6 +73,18 @@ Backend unit tests were used for testing the success of the refactoring. All aut
 
 The refactoring itself is documented by the git log.
 
+```
+The function calls were the following event types was affected now adds the old and new values to the entry:
+* USER_AVATAR_SOURCE_CHANGED
+* USER_FULL_NAME_CHANGED
+* USER_EMAIL_CHANGED
+* USER_TOS_VERSION_CHANGED
+* USER_API_KEY_CHANGED
+* USER_BOT_OWNER_CHANGED
+
+Existing unittests were modified to test that the values are correct. No other testing was done.
+```
+
 ## Effort spent
 
 | Area | Fredrik | Emma | Ted |
