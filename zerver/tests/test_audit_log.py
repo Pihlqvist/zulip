@@ -116,14 +116,15 @@ class TestRealmAuditLog(ZulipTestCase):
     def test_regenerate_api_key(self) -> None:
         now = timezone_now()
         user = self.example_user('hamlet')
+        old_value = user.api_key
         do_regenerate_api_key(user, user)
         self.assertEqual(RealmAuditLog.objects.filter(event_type=RealmAuditLog.USER_API_KEY_CHANGED,
                                                       event_time__gte=now).count(), 1)
         self.assertTrue(user.api_key)
 
         audit_entry = RealmAuditLog.objects.get(event_type=RealmAuditLog.USER_API_KEY_CHANGED, event_time__gte=now)
-        self.assertEqual(audit_entry.old_value, 'S2vhEADdAaDfjTED3tk4O4FqV0S5MPgF')
-        self.assertNotEqual(audit_entry.new_value, audit_entry.old_value)
+        self.assertEqual(audit_entry.old_value, old_value)
+        self.assertNotEqual(audit_entry.new_value, old_value)
 
     def test_get_streams_traffic(self) -> None:
         realm = get_realm('zulip')
