@@ -2367,6 +2367,9 @@ class RealmAuditLog(models.Model):
 
     event_type = models.CharField(max_length=40)  # type: str
 
+    old_value = models.TextField(null=True) # type: Optional[str]
+    new_value = models.TextField(null=True) # type: Optional[str]
+
     def __str__(self) -> str:
         if self.modified_user is not None:
             return "<RealmAuditLog: %s %s %s %s>" % (
