@@ -1,0 +1,29 @@
+(zulip-py3-venv)vagrant@vagrant-base-trusty-amd64:/srv/zulip$ ./tools/test-backend zerver.tests.test_audit_log.TestRealmAuditLog
+ pg_terminate_backend 
+----------------------
+(0 rows)
+
+DROP DATABASE
+CREATE DATABASE
+Flushing memcached...
+OK
+-- Running tests in serial mode.
+Destroying test database for alias 'default'...
+Using existing clone for alias 'default'...
+Running zerver.tests.test_audit_log.TestRealmAuditLog.test_change_avatar_source
+Running zerver.tests.test_audit_log.TestRealmAuditLog.test_change_bot_owner
+Running zerver.tests.test_audit_log.TestRealmAuditLog.test_change_email
+Running zerver.tests.test_audit_log.TestRealmAuditLog.test_change_full_name
+Running zerver.tests.test_audit_log.TestRealmAuditLog.test_change_password
+Running zerver.tests.test_audit_log.TestRealmAuditLog.test_change_tos_version
+Running zerver.tests.test_audit_log.TestRealmAuditLog.test_get_streams_traffic
+Running zerver.tests.test_audit_log.TestRealmAuditLog.test_regenerate_api_key
+Running zerver.tests.test_audit_log.TestRealmAuditLog.test_subscriptions
+Running zerver.tests.test_audit_log.TestRealmAuditLog.test_user_activation
+** Test is TOO slow: zerver.tests.test_audit_log.TestRealmAuditLog.test_user_activation (0.444 s)
+
+----------------------------------------------------------------------
+Ran 10 tests in 1.083s
+
+OK
+Destroying test database for alias 'default'...
