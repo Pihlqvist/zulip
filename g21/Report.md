@@ -50,7 +50,11 @@ The refactoring carried out was to add a new_value field and an old_value field 
 
 ## Test logs
 
-Overall results with link to a copy of the logs (before/after refactoring).
+Backend unit tests were used for testing the success of the refactoring. All automated test successfully ran but we only tried this once because of time consumptions. The unit tests involve the class itself so should cover all of the functionalities of the refactoring.
+
+#### logs
+* [test before](https://github.com/Pihlqvist/zulip/blob/master/g21/testlog_before.txt)
+* [test_after](https://github.com/Pihlqvist/zulip/blob/master/g21/testlog_before.txt)
 
 The refactoring itself is documented by the git log.
 
