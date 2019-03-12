@@ -71,8 +71,8 @@ The best overview can be found with a git pull request, [refactoring](https://gi
 Backend unit tests were used for testing the success of the refactoring. All automated test successfully ran but we only tried this once because of time consumptions. The unit tests involve the class itself so should cover all of the functionalities of the refactoring.
 
 #### logs
-* [test before](https://github.com/Pihlqvist/zulip/blob/master/g21/testlog_before.txt)
-* [test after](https://github.com/Pihlqvist/zulip/blob/master/g21/testlog_after.txt)
+* AuditLogTest [Before](https://github.com/Pihlqvist/zulip/blob/master/g21/testlog_before.txt), [After](https://github.com/Pihlqvist/zulip/blob/master/g21/testlog_after.txt)
+* StripeTest [Before](https://github.com/Pihlqvist/zulip/blob/master/g21/testlog_stripe_Before.txt), [After](https://github.com/Pihlqvist/zulip/blob/master/g21/testlog_stripe_After.txt)
 
 The refactoring itself is documented by the git log.
 
