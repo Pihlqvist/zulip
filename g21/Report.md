@@ -109,9 +109,11 @@ Existing unittests were modified to test that the values are correct. No other t
 
 One thing I learned is how important it is that issues are well-written. Many projects wrote short and general issues, which made it hard to know what the requirements were and where in the project the changes needed to be made. Making sure to tag the issues with appropriate tags makes them much easier to find. Adding an assignee also makes it convenient for people to not get false possitives in their search.
 
-One other thing that really bothered me was the dependency hell. All projects required so many dependencies and making sure everyone got correclty installed and worked was such a hassle. Zulip had so many dependencies that they wrapped everything up in a virtual machine, which actually worked quite well.
+One other thing that really bothered me was the dependency hell. All projects required so many dependencies and making sure everyone got correctly installed and worked was such a hassle. Zulip had so many dependencies that they wrapped everything up in a virtual machine, which actually worked quite well.
 
 #### Emma
+
+The main take-away is that documentation is vital in a big project. Not just documenting the code, but documenting how to set up the development environment and documenting issues properly are very important if you actually want new people to help out on and open source project. Many projects we looked at had very poorly documented code and issues that were hard to understand for a person new to the project. 
 
 #### Fredrik
 
