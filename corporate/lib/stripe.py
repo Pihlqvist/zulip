@@ -186,7 +186,7 @@ def do_create_stripe_customer(user: UserProfile, stripe_token: Optional[str]=Non
         if stripe_token is not None:
             RealmAuditLog.objects.create(
                 realm=user.realm, acting_user=user, event_type=RealmAuditLog.STRIPE_CARD_CHANGED,
-                event_time=event_time)
+                event_time=event_time, new_value=stripe_customer.id)
         customer, created = Customer.objects.update_or_create(realm=realm, defaults={
             'stripe_customer_id': stripe_customer.id})
         user.is_billing_admin = True
