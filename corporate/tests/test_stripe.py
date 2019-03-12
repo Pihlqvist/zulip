@@ -575,6 +575,11 @@ class StripeTest(StripeTestCase):
                                  .values_list('event_type', flat=True).order_by('id'))
         self.assertEqual(audit_log_entries, [RealmAuditLog.STRIPE_CUSTOMER_CREATED,
                                              RealmAuditLog.STRIPE_CARD_CHANGED])
+        # Check that we correctly added new value
+        audit_log_entries = list(RealmAuditLog.objects.filter(acting_user=user)
+                                 .values_list('new_value', flat=True).order_by('id'))
+        self.assertEqual(audit_log_entries, [stripe_customer_id,
+                                             stripe_customer_id])
         # Check that we did not update Realm
         realm = get_realm("zulip")
         self.assertNotEqual(realm.plan_type, Realm.STANDARD)
