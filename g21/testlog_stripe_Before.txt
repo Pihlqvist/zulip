@@ -1,0 +1,53 @@
+(zulip-py3-venv)vagrant@vagrant-ubuntu-trusty-64:/srv/zulip$ ./tools/test-backend corporate.tests.test_stripe
+ pg_terminate_backend 
+----------------------
+(0 rows)
+
+DROP DATABASE
+CREATE DATABASE
+Flushing memcached...
+OK
+-- Running tests in serial mode.
+Destroying test database for alias 'default'...
+Using existing clone for alias 'default'...
+Running corporate.tests.test_stripe.BillingHelpersTest.test_compute_plan_parameters
+Running corporate.tests.test_stripe.BillingHelpersTest.test_next_month
+Running corporate.tests.test_stripe.BillingHelpersTest.test_update_or_create_stripe_customer_logic
+Running corporate.tests.test_stripe.InvoiceTest.test_fixed_price_plans
+** Test is TOO slow: corporate.tests.test_stripe.InvoiceTest.test_fixed_price_plans (0.873 s)
+Running corporate.tests.test_stripe.InvoiceTest.test_invoice_plan
+Running corporate.tests.test_stripe.InvoiceTest.test_invoice_plans_as_needed
+Running corporate.tests.test_stripe.InvoiceTest.test_invoicing_status_is_started
+Running corporate.tests.test_stripe.InvoiceTest.test_no_invoice_needed
+Running corporate.tests.test_stripe.LicenseLedgerTest.test_add_plan_renewal_if_needed
+Running corporate.tests.test_stripe.LicenseLedgerTest.test_update_license_ledger_for_automanaged_plan
+Running corporate.tests.test_stripe.LicenseLedgerTest.test_update_license_ledger_if_needed
+Running corporate.tests.test_stripe.LicenseLedgerTest.test_user_changes
+** Test is TOO slow: corporate.tests.test_stripe.LicenseLedgerTest.test_user_changes (0.475 s)
+Running corporate.tests.test_stripe.RequiresBillingAccessTest.test_json_endpoints
+Running corporate.tests.test_stripe.StripeTest.test_attach_discount_to_realm
+** Test is TOO slow: corporate.tests.test_stripe.StripeTest.test_attach_discount_to_realm (0.403 s)
+Running corporate.tests.test_stripe.StripeTest.test_billing_not_enabled
+Running corporate.tests.test_stripe.StripeTest.test_billing_page_permissions
+** Test is TOO slow: corporate.tests.test_stripe.StripeTest.test_billing_page_permissions (0.416 s)
+Running corporate.tests.test_stripe.StripeTest.test_catch_stripe_errors
+Running corporate.tests.test_stripe.StripeTest.test_check_upgrade_parameters
+Running corporate.tests.test_stripe.StripeTest.test_get_seat_count
+Running corporate.tests.test_stripe.StripeTest.test_payment_method_string
+Running corporate.tests.test_stripe.StripeTest.test_redirect_for_billing_home
+Running corporate.tests.test_stripe.StripeTest.test_replace_payment_source
+Running corporate.tests.test_stripe.StripeTest.test_sign_string
+Running corporate.tests.test_stripe.StripeTest.test_upgrade_by_card
+Running corporate.tests.test_stripe.StripeTest.test_upgrade_by_card_with_outdated_seat_count
+Running corporate.tests.test_stripe.StripeTest.test_upgrade_by_invoice
+Running corporate.tests.test_stripe.StripeTest.test_upgrade_license_counts
+Running corporate.tests.test_stripe.StripeTest.test_upgrade_race_condition
+Running corporate.tests.test_stripe.StripeTest.test_upgrade_where_first_card_fails
+Running corporate.tests.test_stripe.StripeTest.test_upgrade_with_tampered_seat_count
+Running corporate.tests.test_stripe.StripeTest.test_upgrade_with_uncaught_exception
+
+----------------------------------------------------------------------
+Ran 31 tests in 6.537s
+
+OK
+Destroying test database for alias 'default'...
