@@ -53,6 +53,8 @@ The existing tests related to the class were neatly put in a unittest class, [Te
 
 We modified the unittest to check the values of the ‘old_value’ and ‘new_value’ columns we added. The modified values can be found in the updated [TestRealmAuditLog](https://github.com/Pihlqvist/zulip/blob/issue-10274/zerver/tests/test_audit_log.py#L19-L166).
 
+We also modified the unittest to check the values of the ‘old_value’ and ‘new_value’ columns we added in the [StripeTestCase](https://github.com/Pihlqvist/zulip/blob/issue-10274/corporate/tests/test_stripe.py#L579), as the RealAuditLog keeps track on when a stripe card customer is created.
+
 ## The refactoring carried out
 
 ![Before Refactoring](https://github.com/Pihlqvist/zulip/blob/master/g21/ULM-Before_refactoring.png "Before Refactoring")
